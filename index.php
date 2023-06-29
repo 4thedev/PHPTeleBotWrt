@@ -34,7 +34,6 @@ $bot->cmd("/ping", function () {
     $end_time = microtime(true);
     $diff = round(($end_time - $start_time) * 1000);
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"Ping time taken: " . $diff . "ms"
 		. "\n\n" . $GLOBALS["randAds"]
 		,$GLOBALS["options"]);
@@ -43,7 +42,6 @@ $bot->cmd("/ping", function () {
 // start bot
 $bot->cmd("/start", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"Welcome to PHPTeleBotWrt!\nRun /cmdlist to see all available comands.\n\n Source: https://github.com/helmiau/PHPTeleBotWrt\n Donate: https://helmiau.com/pay"
 		. "\n\n" . $GLOBALS["randAds"]
 		,$GLOBALS["options"]);
@@ -66,7 +64,6 @@ $bot->cmd("/cmdlist", function () {
     }
 	unset($check_boot_stat);
 	Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 "📁PHPTeleBotWrt Manager
  ↳/botup : Update bot binaries
  ↳/botas : Add/remove bot to/from auto start on boot [$boot_stat]
@@ -156,7 +153,6 @@ $bot->cmd("/ul", function ($filedir) {
 	}
 	
 	Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"$pesan_upf"
 		. "\n\n" . $GLOBALS["randAds"]
 		,$GLOBALS["options"]);
@@ -180,7 +176,6 @@ $bot->cmd("/dl", function ($filedir) {
 	if (file_exists($filedir)) {
 		$curled = shell_exec("curl -F document=@\"$filedir\" \"https://api.telegram.org/bot$token/sendDocument?chat_id=$chat_dest\"");
 		Bot::sendMessage(
-			$GLOBALS["banner"] . "\n" .
 			"File <code>$filedir</code> retrieved successfully!.\n\nFile <code>$filedir</code> telah diterima."
 			. "\n\n" . $GLOBALS["randAds"]
 			,$GLOBALS["options"]);
@@ -199,7 +194,6 @@ $bot->cmd("/cp", function ($cpold, $cpnew) {
     if (file_exists($cpold) && !file_exists($cpnew)) {
 		$copied = shell_exec("cp \"$cpold\" \"$cpnew\"");
 		Bot::sendMessage(
-			$GLOBALS["banner"] . "\n" .
 			"File <code>$cpold</code> copied to <code>$cpnew</code>!.\nFile <code>$cpold</code> telah dipindah ke <code>$cpnew</code>!."
 			. "\n\n" . $GLOBALS["randAds"]
 			,$GLOBALS["options"]);
@@ -217,7 +211,6 @@ $bot->cmd("/mv", function ($mvold, $mvnew) {
     if (file_exists($mvold) && !file_exists($mvnew)) {
 		$copied = shell_exec("cp \"$mvold\" \"$mvnew\" && rm -f \"$mvold\"");
 		Bot::sendMessage(
-			$GLOBALS["banner"] . "\n" .
 			"File <code>$mvold</code> moved to <code>$mvnew</code>!.\nFile <code>$mvold</code> telah dipindah ke <code>$mvnew</code>!."
 			. "\n\n" . $GLOBALS["randAds"]
 			,$GLOBALS["options"]);
@@ -235,7 +228,6 @@ $bot->cmd("/rm", function ($rmfile) {
     if (file_exists($rmfile)) {
 		$copied = shell_exec("rm -f \"$rmfile\"");
 		Bot::sendMessage(
-			$GLOBALS["banner"] . "\n" .
 			"File <code>$rmfile</code> deleted!.\nFile <code>$rmfile</code> telah dihapus!."
 			. "\n\n" . $GLOBALS["randAds"]
 			,$GLOBALS["options"]);
@@ -270,7 +262,6 @@ $bot->cmd("/rs", function ($app = 'ls') {
 			$rextat = shell_exec("$appPath restart >/dev/null 2>&1 &");
 		}
 		Bot::sendMessage(
-			$GLOBALS["banner"] . "\n" .
 			"Restarting <code>" . $app . "</code>..." . "\n\n" .
 			"Run <code>/rs ls</code> to see listed supported apps"
 			. "\n\n" . $GLOBALS["randAds"]
@@ -304,7 +295,6 @@ $bot->cmd("/sh", function ($bashXmd) {
 // OpenClash Proxies
 $bot->cmd("/ocpr", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"<code>" . OpenClashProxies() . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
 		,$GLOBALS["options"]);
@@ -316,7 +306,6 @@ $bot->cmd("/ocst", function () {
 		"Start/Restarting Openclash ... "
         ,$GLOBALS["options"]);
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"<code>" . shell_exec("uci set openclash.config.enable=1 && uci commit openclash && /etc/init.d/openclash restart >/dev/null 2>&1 &") . "</code>"
 		. "Openclash started successfully!."
 		. "\n\n" . $GLOBALS["randAds"]
@@ -329,7 +318,6 @@ $bot->cmd("/ocsp", function () {
 		"Stopping Openclash ... "
         ,$GLOBALS["options"]);
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"<code>" . shell_exec("uci set openclash.config.enable=0 && uci commit openclash && /etc/init.d/openclash stop >/dev/null 2>&1 &") . "</code>"
 		. "Openclash stopped successfully!."
 		. "\n\n" . $GLOBALS["randAds"]
@@ -352,7 +340,6 @@ $bot->cmd("/ocup", function () {
 		$ocupinfo = "Openclash updated to $ocver2";
 	}
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"$ocupinfo"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -398,7 +385,6 @@ $bot->cmd("/ocua", function () {
 		$core_meta_info = "Meta core updated to $core_meta_new";
 	}
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"$oc_app_info" . "\n" .
 		"$core_new_info" . "\n" .
 		"$core_tun_info" . "\n" .
@@ -413,13 +399,11 @@ $bot->cmd("/vnstat", function ($input) {
     $output = shell_exec("vnstat $input 2>&1");
     if ($output === null) {
         Bot::sendMessage(
-			$GLOBALS["banner"] . "\n" .
 			"Invalid input or vnstat not found"
 			. "\n" . $GLOBALS["randAds"]
 			,$GLOBALS["options"]);
     } else {
         Bot::sendMessage(
-			$GLOBALS["banner"] . "\n" .
 			"<code>" . $output . "</code>"
 			. "\n" . $GLOBALS["randAds"]
 			,$GLOBALS["options"]);
@@ -465,7 +449,6 @@ $bot->cmd("/memory", function () {
     $bar = str_repeat("■", round($percent / 5));
     $bar .= str_repeat("□", 20 - round($percent / 5));
     $output =
-		$GLOBALS["banner"] . "\n" .
         "<code>Memory usage: \nBar: " .
         $bar .
         "\nUsed: $used MB \nAvailable: $free MB \nTotal: $total MB \nUsage: $percent%</code>"
@@ -476,7 +459,6 @@ $bot->cmd("/memory", function () {
 // Systemm info
 $bot->cmd("/sysinfo", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         "<code>" . shell_exec("src/plugins/sysinfo.sh -bw") . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -485,7 +467,6 @@ $bot->cmd("/sysinfo", function () {
 // Reboot openwrt
 $bot->cmd("/reboot", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         "Rebooting Openwrt..." .
         "<code>" . shell_exec("reboot") . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
@@ -495,7 +476,6 @@ $bot->cmd("/reboot", function () {
 // Turn off openwrt
 $bot->cmd("/turnoff", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         "Turning off Openwrt..." .
         "<code>" . shell_exec("halt && reboot -p") . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
@@ -505,7 +485,6 @@ $bot->cmd("/turnoff", function () {
 // Network clients info
 $bot->cmd("/netcl", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         shell_exec("src/plugins/netcl.sh")
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -514,7 +493,6 @@ $bot->cmd("/netcl", function () {
 // Firewall rule lists
 $bot->cmd("/fwlist", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         "<code>" . shell_exec("src/plugins/fwlist.sh") . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -531,7 +509,6 @@ $bot->cmd("/ifcfg", function ($iface) {
     }
 	
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         "<code>$pesan_ifcfg\n\n$ex_ifcfg</code>"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -540,7 +517,6 @@ $bot->cmd("/ifcfg", function ($iface) {
 // OpenClash
 $bot->cmd("/oc", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         "<code>" . shell_exec("src/plugins/oc.sh") . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -549,7 +525,6 @@ $bot->cmd("/oc", function () {
 // My IP Address info
 $bot->cmd("/myip", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         "<code>" . myip() . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -558,7 +533,6 @@ $bot->cmd("/myip", function () {
 // OpenClash Rules
 $bot->cmd("/ocrl", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"<code>" . OpenClashRules() . "</code>"
 		. "\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -594,7 +568,6 @@ $bot->cmd("/setxl", function ($number) {
 $bot->cmd("/myxl", function ($number) {
     Bot::sendMessage("Checking number $number MyXL on progress...", $GLOBALS["options"]);
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"<code>" . MyXL($number) . "</code>"
 		. "\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -605,7 +578,6 @@ $bot->cmd("/myxl", function ($number) {
 $bot->cmd("/adb", function () {
     Bot::sendMessage("<code>ADB on Progress</code>", $GLOBALS["options"]);
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"<code>" . ADB() . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -614,7 +586,6 @@ $bot->cmd("/adb", function () {
 //Aria2 cmd
 $bot->cmd("/aria2add", function ($url) {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         "<code>" . shell_exec("src/plugins/add.sh $url") . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -622,7 +593,6 @@ $bot->cmd("/aria2add", function ($url) {
 
 $bot->cmd("/aria2stats", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         "<code>" . shell_exec("src/plugins/stats.sh") . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -630,7 +600,6 @@ $bot->cmd("/aria2stats", function () {
 
 $bot->cmd("/aria2pause", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         "<code>" . shell_exec("src/plugins/pause.sh") . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -638,7 +607,6 @@ $bot->cmd("/aria2pause", function () {
 
 $bot->cmd("/aria2resume", function () {
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
         "<code>" . shell_exec("src/plugins/resume.sh") . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -655,7 +623,6 @@ $bot->cmd("/botup", function () {
 		"<code>" . shell_exec("chmod 0755 phpbotmgr && ./phpbotmgr u") . "</code>"
         ,$GLOBALS["options"]);
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"PHPTeleBotWrt updated..."
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -679,7 +646,6 @@ $bot->cmd("/botas", function () {
 		"<code>" . shell_exec("chmod 0755 phpbotmgr && ./phpbotmgr a") . "</code>"
         ,$GLOBALS["options"]);
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"PHPTeleBotWrt auto start $boot_stat2..."
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
@@ -706,7 +672,6 @@ $bot->cmd("/botcr", function () {
 		"<code>" . shell_exec("chmod 0755 phpbotmgr && ./phpbotmgr t") . "</code>"
         ,$GLOBALS["options"]);
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
 		"PHPTeleBotWrt cronjob scheduled task $cron_stat2..."
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
